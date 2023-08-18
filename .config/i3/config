@@ -4,7 +4,6 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 #
-
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -185,7 +184,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # class                 border  backgr. text    indicator child_border
-client.focused          #0000EE #222222 #ffffff #0000EE   #0000EE
+client.focused          #0000CC #222222 #ffffff #0000CC   #0000CC
 client.focused_inactive #333333 #333333 #ffffff #333333   #333333
 client.unfocused        #333333 #222222 #888888 #222222   #222222
 client.urgent           #900000 #900000 #ffffff #900000   #900000
@@ -195,20 +194,36 @@ client.background       #ffffff
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-#bar {
+# bar {
 #	status_command i3status
 #	position top
-#}
+# }
 
 # Hide window title bar
-default_border pixel 2
-default_floating_border pixel 2
-for_window [class="^.*"] border pixel 2
+default_border pixel 0
+default_floating_border pixel 0
+for_window [class="^.*"] border pixel 0
+
+# Hide border when 1 app
 smart_borders on
+
+# Focus on hover
+focus_follows_mouse no
 
 # Floating pop up automatically
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
+
+# Enable floating mode for specific application
+for_window [class="XTerm"] floating enable
+for_window [class="Webapp-manager.py"] floating enable
+for_window [class="Xdm-app"] floating enable
+for_window [class="Free Download Manager"] floating enable
+for_window [class="Nm-connection-editor"] floating enable
+for_window [class="4K Video Downloader"] floating enable
+
+# Popups during fullscreen mode
+popup_during_fullscreen smart
 
 # Make the currently focused window a scratchpad
 bindsym $mod+minus move scratchpad
@@ -220,17 +235,20 @@ bindsym $mod+equal scratchpad show
 bindsym Ctrl+$mod+Right workspace next
 bindsym Ctrl+$mod+Left workspace next
 bindsym $mod+b workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth
+bindsym Shift+$mod+b move container to workspace back_and_forth
 
 # Configure px of space between windows and to the screen edges.
-#gaps inner 4px
+gaps inner 5px
 
 # Sreen brightness controls
 exec --no-startup-id brightnessctl set 45%
-bindsym XF86MonBrightnessUp exec brightnessctl set +5%
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym $mod+XF86MonBrightnessUp exec brightnessctl set 50%
-bindsym $mod+XF86MonBrightnessDown exec brightnessctl set 5%
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym $mod+XF86MonBrightnessUp exec --no-startup-id brightnessctl set 50%
+bindsym $mod+XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%
+
+# Polkit-lxsession
+exec --no-startup-id /usr/bin/lxpolkit
 
 # Picom
 exec --no-startup-id picom -b
@@ -241,19 +259,16 @@ exec --no-startup-id $HOME/.config/polybar/touchpad.sh
 # Notification
 exec --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon
 
-# XFCE4-power-manager
+# XFCE4-power-manager and lockscreen
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id xfce4-screensaver
 
 # Keybinding to lock screen
 bindsym Control+$mod+l exec xflock4
-##bindsym Control+$mod+l exec "i3lock -i /usr/share/backgrounds/arch.png"
+#bindsym Control+$mod+l exec "i3lock -i /usr/share/backgrounds/arch.png"
 
 # Auto lock the screen
-##exec_always --no-startup-id xautolock -detectsleep -time 30 -locker "i3lock -i /usr/share/backgrounds/arch.png"
-
-# Polkit-lxsession
-exec --no-startup-id /usr/bin/lxpolkit
+#exec_always --no-startup-id xautolock -detectsleep -time 30 -locker "i3lock -i /usr/share/backgrounds/arch.png"
 
 # Blueman
 exec --no-startup-id blueman-applet
@@ -263,7 +278,7 @@ exec --no-startup-id pamac-tray
 
 # Polybar
 exec --no-startup-id polybar top
-##exec --no-startup-id polybar bottom
+exec --no-startup-id polybar bottom
 
 # Wallpaper
 exec_always --no-startup-id nitrogen --restore
@@ -271,8 +286,8 @@ exec_always --no-startup-id nitrogen --restore
 # Rofi
 bindsym $mod+m exec rofi -show run
 bindsym $mod+n exec rofi -show filebrowser -show-icons -icon-theme "Papirus-Dark"
-bindsym $mod+x exec rofi -show drun -show-icons -icon-theme "Papirus-Dark"
-bindsym Super_L exec rofi -show drun -show-icons -icon-theme "Papirus-Dark"
+bindsym $mod+x exec rofi -show drun -show-icons -icon-theme "Papirus-Dark" -theme "$HOME/.local/share/rofi/themes/windows11-list-dark.rasi"
+bindsym Super_L exec rofi -show drun -show-icons -icon-theme "Papirus-Dark" -theme "$HOME/.local/share/rofi/themes/windows11-list-dark.rasi"
 bindsym $mod+p exec rofi -show power-menu -modi "power-menu:$HOME/.config/rofi/rofi-power-menu"
 
 # EasyEffects
@@ -287,3 +302,4 @@ bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(d
 bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
 bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
 bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
+
