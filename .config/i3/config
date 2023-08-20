@@ -12,7 +12,8 @@ set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Inter Regular 10
+font pango:Inter Bold 10
+title_align center
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -183,12 +184,30 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# class                 border  backgr. text    indicator child_border
-client.focused          #0000CC #222222 #ffffff #0000CC   #0000CC
-client.focused_inactive #333333 #333333 #ffffff #333333   #333333
-client.unfocused        #333333 #222222 #888888 #222222   #222222
-client.urgent           #900000 #900000 #ffffff #900000   #900000
-client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+# Define Light Color Variables
+set $bg-color               #EEEEEE
+set $text-color             #222222
+set $inactive-bg-color      #CCCCCC
+set $inactive-text-color    #666666
+set $urgent-bg-color        #FFFFFF
+set $urgent-text-color      #FF1100
+set $indicator              #0000CC
+
+# Define Dark Color Variables
+#set $bg-color               #222222
+#set $text-color             #EEEEEE
+#set $inactive-bg-color      #222222
+#set $inactive-text-color    #AAAAAA
+#set $urgent-bg-color        #222222
+#set $urgent-text-color      #FF1100
+#set $indicator              #0000CC
+
+# class                 border  		background 		text   			indicator 	child_border
+client.focused          $bg-color 		$bg-color 		$text-color 		$indicator   	$bg-color
+client.focused_inactive $inactive-bg-color 	$inactive-bg-color 	$inactive-text-color 	$indicator   	$inactive-bg-color
+client.unfocused        $inactive-bg-color 	$inactive-bg-color 	$inactive-text-color 	$indicator   	$inactive-bg-color
+client.urgent           $urgent-bg-color 	$urgent-bg-color 	$urgent-text-color 	$indicator   	$urgent-bg-color
+client.placeholder      #000000 		#000000 		#ffffff 		$indicator   	#000000
 
 client.background       #ffffff
 
@@ -200,15 +219,23 @@ client.background       #ffffff
 # }
 
 # Hide window title bar
-default_border pixel 0
-default_floating_border pixel 0
-for_window [class="^.*"] border pixel 0
+default_border pixel 2
+default_floating_border pixel 2
+for_window [class="^.*"] border pixel 2
+
+# Configure px of space between windows and to the screen edges.
+gaps inner 5px
 
 # Hide border when 1 app
 smart_borders on
+hide_edge_borders smart_no_gaps
+smart_gaps on
 
 # Focus on hover
 focus_follows_mouse no
+
+# Focus behaviour
+focus_on_window_activation focus
 
 # Floating pop up automatically
 for_window [window_role="pop-up"] floating enable
@@ -221,6 +248,8 @@ for_window [class="Xdm-app"] floating enable
 for_window [class="Free Download Manager"] floating enable
 for_window [class="Nm-connection-editor"] floating enable
 for_window [class="4K Video Downloader"] floating enable
+for_window [class="Eog"] floating enable
+for_window [class="vlc"] floating enable
 
 # Popups during fullscreen mode
 popup_during_fullscreen smart
@@ -232,13 +261,12 @@ bindsym $mod+minus move scratchpad
 bindsym $mod+equal scratchpad show
 
 # switch between the current and the previously focused one
-bindsym Ctrl+$mod+Right workspace next
-bindsym Ctrl+$mod+Left workspace next
+bindsym Ctrl+$mod+Right workspace next_on_output
+bindsym Ctrl+$mod+Left workspace prev_on_output
+bindsym Ctrl+$mod+Up move container to workspace next
+bindsym Ctrl+$mod+Down move container to workspace prev
 bindsym $mod+b workspace back_and_forth
-bindsym Shift+$mod+b move container to workspace back_and_forth
-
-# Configure px of space between windows and to the screen edges.
-gaps inner 5px
+bindsym Ctrl+$mod+b move container to workspace back_and_forth
 
 # Sreen brightness controls
 exec --no-startup-id brightnessctl set 45%
