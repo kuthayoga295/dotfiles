@@ -12,7 +12,7 @@ set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Inter Bold 10
+font pango:Roboto Condensed Regular 10
 title_align center
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
@@ -185,7 +185,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Define Light Color Variables
-set $bg-color               #EEEEEE
+set $bg-color               #00AAFF
 set $text-color             #222222
 set $inactive-bg-color      #CCCCCC
 set $inactive-text-color    #666666
@@ -203,13 +203,13 @@ set $indicator              #0000CC
 #set $indicator              #0000CC
 
 # class                 border  		background 		text   			indicator 	child_border
-client.focused          $bg-color 		$bg-color 		$text-color 		$indicator   	$bg-color
+client.focused          $bg-color		$bg-color 		$text-color 		$indicator   	$bg-color
 client.focused_inactive $inactive-bg-color 	$inactive-bg-color 	$inactive-text-color 	$indicator   	$inactive-bg-color
 client.unfocused        $inactive-bg-color 	$inactive-bg-color 	$inactive-text-color 	$indicator   	$inactive-bg-color
 client.urgent           $urgent-bg-color 	$urgent-bg-color 	$urgent-text-color 	$indicator   	$urgent-bg-color
-client.placeholder      #000000 		#000000 		#ffffff 		$indicator   	#000000
+client.placeholder      #000000 		#000000			#ffffff 		$indicator   	#000000
 
-client.background       #ffffff
+client.background       #000000
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -250,6 +250,7 @@ for_window [class="Nm-connection-editor"] floating enable
 for_window [class="4K Video Downloader"] floating enable
 for_window [class="Eog"] floating enable
 for_window [class="vlc"] floating enable
+for_window [class="Blueman-manager"] floating enable
 
 # Popups during fullscreen mode
 popup_during_fullscreen smart
@@ -276,20 +277,24 @@ bindsym $mod+XF86MonBrightnessUp exec --no-startup-id brightnessctl set 50%
 bindsym $mod+XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%
 
 # Polkit-lxsession
-exec --no-startup-id /usr/bin/lxpolkit
+#exec --no-startup-id /usr/bin/lxpolkit
 
-# Picom
-exec --no-startup-id picom -b
+# Polkit-gnome
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 # Touchpad
 exec --no-startup-id $HOME/.config/polybar/touchpad.sh
 
 # Notification
+#exec --no-startup-id /usr/lib/xfce4/notifyd/xfce4-notifyd
 exec --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon
 
 # XFCE4-power-manager and lockscreen
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id xfce4-screensaver
+
+# Picom
+exec --no-startup-id picom -b
 
 # Keybinding to lock screen
 bindsym Control+$mod+l exec xflock4
@@ -314,8 +319,8 @@ exec_always --no-startup-id nitrogen --restore
 # Rofi
 bindsym $mod+m exec rofi -show run
 bindsym $mod+n exec rofi -show filebrowser -show-icons -icon-theme "Papirus-Dark"
-bindsym $mod+x exec rofi -show drun -show-icons -icon-theme "Papirus-Dark" -theme "$HOME/.local/share/rofi/themes/windows11-list-dark.rasi"
-bindsym Super_L exec rofi -show drun -show-icons -icon-theme "Papirus-Dark" -theme "$HOME/.local/share/rofi/themes/windows11-list-dark.rasi"
+bindsym $mod+x exec rofi -show drun -show-icons -icon-theme "Papirus-Dark" -theme "$HOME/.local/share/rofi/themes/windows11-list-light.rasi"
+bindsym Super_L exec rofi -show drun -show-icons -icon-theme "Papirus-Dark" -theme "$HOME/.local/share/rofi/themes/windows11-list-light.rasi"
 bindsym $mod+p exec rofi -show power-menu -modi "power-menu:$HOME/.config/rofi/rofi-power-menu"
 
 # EasyEffects

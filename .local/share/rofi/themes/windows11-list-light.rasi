@@ -1,8 +1,8 @@
 * {
-  font: "Roboto 10";
+  font: "Roboto 12";
 
-  bg0    : #ffffff80;
-  bg1    : #f9f9f9bf;
+  bg0    : #ffffff;
+  bg1    : #f9f9f9dd;
   bg2    : #f7f7f7;
   bg3    : #fefefebf;
   fg0    : #1a1a1a;
@@ -23,27 +23,30 @@ element-icon, element-text, scrollbar {
 }
 
 window {
-  location : south;
-  width    : 600px;
+  location : west;
+  width    : 400px;
   height   : 600px;
-  y-offset : -4px;
-
+  y-offset : -50px;
+  x-offset : 5px;
+  
   background-color : @bg1;
   border-radius    : 8px;
+  border           : 2px solid;
+  border-color     : @accent;
 }
 
 mainbox {
-  padding : 24px;
-  spacing : 24px;
+  padding : 20px;
+  spacing : 20px;
 }
 
 inputbar {
   padding          : 8px;
   spacing          : 4px;
   children         : [ icon-search, entry ];
-  border           : 0 0 2px 0 solid;
+  border           : 2px solid;
   border-color     : @accent;
-  border-radius    : 2px;
+  border-radius    : 99px;
   background-color : @bg0;
 }
 
@@ -64,12 +67,11 @@ entry {
 }
 
 textbox {
-  padding          : 4px 8px;
-  background-color : @bg2;
+  padding          : 8px;
 }
 
 listview {
-  columns       : 2;
+  columns       : 1;
   spacing       : 8px;
   fixed-height  : true;
   fixed-columns : true;
@@ -77,8 +79,8 @@ listview {
 
 element {
   spacing       : 1em;
-  padding       : 8px;
-  border-radius : 2px;
+  padding       : 8px 20px;
+  border-radius : 99px;
 }
 
 element normal urgent {
@@ -90,7 +92,10 @@ element normal active {
 }
 
 element selected {
-  background-color: @bg3;
+  background-color : @accent;
+  border           : 2px solid;
+  border-color     : @accent;
+  text-color       : @bg0;
 }
 
 element selected urgent {
