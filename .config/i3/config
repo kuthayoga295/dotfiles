@@ -268,6 +268,8 @@ bindsym Ctrl+$mod+Up move container to workspace next
 bindsym Ctrl+$mod+Down move container to workspace prev
 bindsym $mod+b workspace back_and_forth
 bindsym Ctrl+$mod+b move container to workspace back_and_forth
+bindsym $mod+z workspace next_on_output
+bindsym Shift+$mod+z move container to workspace next
 
 # Sreen brightness controls
 exec --no-startup-id brightnessctl set 45%
@@ -275,6 +277,23 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 bindsym $mod+XF86MonBrightnessUp exec --no-startup-id brightnessctl set 50%
 bindsym $mod+XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%
+
+# Rofi
+bindsym $mod+m exec rofi -show run
+bindsym $mod+n exec rofi -show filebrowser -show-icons -icon-theme "Papirus-Dark"
+bindsym $mod+x exec rofi -show drun -show-icons -icon-theme "Papirus-Light" -theme "$HOME/.local/share/rofi/themes/windows11-list-dark.rasi"
+bindsym Super_L exec rofi -show drun -show-icons -icon-theme "Papirus-Light" -theme "$HOME/.local/share/rofi/themes/windows11-list-dark.rasi"
+bindsym $mod+p exec rofi -show power-menu -modi "power-menu:$HOME/.config/rofi/rofi-power-menu"
+
+# Screenshots
+bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date).png"
+bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date).png"
+bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).png"
+
+# Clipboard Screenshots
+bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
 
 # Polkit-lxsession
 #exec --no-startup-id /usr/bin/lxpolkit
@@ -294,7 +313,10 @@ exec --no-startup-id xfce4-power-manager
 exec --no-startup-id xfce4-screensaver
 
 # Picom
-exec --no-startup-id picom -b
+#exec --no-startup-id picom -b
+
+# Xcompmgr
+exec --no-startup-id xcompmgr
 
 # Keybinding to lock screen
 bindsym Control+$mod+l exec xflock4
@@ -316,23 +338,5 @@ exec --no-startup-id polybar bottom
 # Wallpaper
 exec_always --no-startup-id nitrogen --restore
 
-# Rofi
-bindsym $mod+m exec rofi -show run
-bindsym $mod+n exec rofi -show filebrowser -show-icons -icon-theme "Papirus-Dark"
-bindsym $mod+x exec rofi -show drun -show-icons -icon-theme "Papirus-Dark" -theme "$HOME/.local/share/rofi/themes/windows11-list-light.rasi"
-bindsym Super_L exec rofi -show drun -show-icons -icon-theme "Papirus-Dark" -theme "$HOME/.local/share/rofi/themes/windows11-list-light.rasi"
-bindsym $mod+p exec rofi -show power-menu -modi "power-menu:$HOME/.config/rofi/rofi-power-menu"
-
 # EasyEffects
 exec --no-startup-id easyeffects --gapplication-service
-
-# Screenshots
-bindsym Print exec --no-startup-id maim "/home/$USER/Pictures/$(date).png"
-bindsym $mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) "/home/$USER/Pictures/$(date).png"
-bindsym Shift+Print exec --no-startup-id maim --select "/home/$USER/Pictures/$(date).png"
-
-# Clipboard Screenshots
-bindsym Ctrl+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
-bindsym Ctrl+$mod+Print exec --no-startup-id maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym Ctrl+Shift+Print exec --no-startup-id maim --select | xclip -selection clipboard -t image/png
-
